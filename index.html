@@ -1,0 +1,111 @@
+<link rel="stylesheet" href="simulator.css" />
+
+<div class="sim-wrap">
+  <div class="sim-header">
+    <h2 class="sim-title">Trading Discipline Simulator</h2>
+    <p class="sim-subtitle">
+      Model your strategy over 20 trading days with configurable risk rules
+    </p>
+  </div>
+
+  <div class="sim-card">
+    <div class="sim-grid">
+      <div class="sim-field">
+        <label for="balance">Starting balance</label>
+        <input type="number" id="balance" placeholder="e.g. 1000" />
+      </div>
+      <div class="sim-field">
+        <label for="percentage">Stake %</label>
+        <input type="number" id="percentage" placeholder="e.g. 5" />
+      </div>
+      <div class="sim-field">
+        <label for="maxRisk">Max risk %</label>
+        <input type="number" id="maxRisk" placeholder="e.g. 10" />
+      </div>
+      <div class="sim-field">
+        <label for="maxTrades">Max trades/day</label>
+        <input type="number" id="maxTrades" placeholder="e.g. 3" />
+      </div>
+      <div class="sim-field">
+        <label for="target">Daily target %</label>
+        <input type="number" id="target" placeholder="e.g. 8" />
+      </div>
+      <div class="sim-field">
+        <label for="lossDays">Bad days (sim)</label>
+        <input type="number" id="lossDays" placeholder="e.g. 2" />
+      </div>
+    </div>
+    <div class="sim-actions">
+      <button class="btn-run" onclick="runSim()">▶ Run simulation</button>
+      <button class="btn-export" id="exportBtn" onclick="exportXLSX()" disabled>
+        ↓ Export to Excel
+      </button>
+    </div>
+  </div>
+
+  <div class="sim-stats" id="simStats" hidden>
+    <div class="stat-tile">
+      <span class="stat-label">Final Balance</span>
+      <span class="stat-value" id="statFinal">—</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-label">Net P&amp;L</span>
+      <span class="stat-value" id="statPnl">—</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-label">Total Return</span>
+      <span class="stat-value" id="statReturn">—</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-label">Max Drawdown</span>
+      <span class="stat-value" id="statDD">—</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-label">Profitable Days</span>
+      <span class="stat-value" id="statWins">—</span>
+    </div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table id="simTable">
+      <thead>
+        <tr>
+          <th style="width: 40px">Day</th>
+          <th>Start balance</th>
+          <th>Stake used</th>
+          <th>Outcome</th>
+          <th>Expected bal.</th>
+          <th>Actual bal.</th>
+          <th style="width: 50px">Trades</th>
+          <th>Result</th>
+          <th>Drawdown</th>
+        </tr>
+      </thead>
+      <tbody id="simBody">
+        <tr>
+          <td colspan="9" class="empty-state">
+            <svg
+              width="32"
+              height="32"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              style="display: block; margin: 0 auto 0.5rem; opacity: 0.4"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+              />
+            </svg>
+            Enter parameters above and click <strong>Run simulation</strong>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="simulator.js"></script>
